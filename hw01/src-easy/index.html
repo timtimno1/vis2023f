@@ -16,31 +16,6 @@
 </head>
 
 <body>
-    <!--     <center>
-        <h1 style="color:green">GeeksForGeeks</h1>
-        <h2>Table to CSV converter</h2>
-        <table border="1" cellspacing="0" cellpadding="10">
-            <tr>
-                <th>Name</th>
-                <th>age</th>
-                <th>place</th>
-            </tr>
-            <tr>
-                <td>Laxman</td>
-                <td>19</td>
-                <td>Hyderabad</td>
-            </tr>
-            <tr>
-                <td>Dhoni</td>
-                <td>22</td>
-                <td>Ranchi</td>
-            </tr>
-            <tr>
-                <td>Kohli</td>
-                <td>25</td>
-                <td>Delhi</td>
-            </tr>
-        </table> -->
     <br><br>
     <button type="button" onclick="tableToCSV()">
         download CSV
@@ -71,81 +46,70 @@
             return false;
         }
 
-        a1 = createArray();
-
-        a2 = createArray(2);
-
-        a3 = createArray(121, 13);
+        tableArray = createArray(121, 13);
 
         // Title
-        a3[0] = ['序號', '班級', '學號', '姓名', 'GitHub', '作業一', '作業二', '作業三', '作業四', '作業五', '作業六', '作業七', '作業八', '作業九', '作業十']
+        tableArray[0] = ['序號', '班級', '學號', '姓名', 'GitHub', '作業一', '作業二', '作業三', '作業四', '作業五', '作業六', '作業七', '作業八', '作業九', '作業十']
         className = ['資工系', '資工所', '電資AI', '電資資安', '創新AI']
         classNumber = ['590', '598', 'C52', 'C53', 'C71']
         yearNumber = ['111', '112']
 
-        for (var i = 1; i < a3.length; i++) {
+        for (var i = 1; i < tableArray.length; i++) {
             let classType = Math.floor(Math.random() * 5)
 
             // Index
-            a3[i][0] = i;
+            tableArray[i][0] = i;
 
             // ClassName
-            a3[i][1] = className[classType];
+            tableArray[i][1] = className[classType];
 
             // StudentID
             do {
-                a3[i][2] = yearNumber[Math.floor(Math.random() * 2)] + classNumber[classType] + Math.floor(Math.random() * 999);
-            } while (checkExistence(2, a3, a3[i][2]));
+                tableArray[i][2] = yearNumber[Math.floor(Math.random() * 2)] + classNumber[classType] + Math.floor(Math.random() * 999);
+            } while (checkExistence(2, tableArray, tableArray[i][2]));
             
             // Name
             do {
-                a3[i][3] = String.fromCharCode(Math.floor(Math.random() * 0x51ff + 0x4e00)) +
+                tableArray[i][3] = String.fromCharCode(Math.floor(Math.random() * 0x51ff + 0x4e00)) +
                     String.fromCharCode(Math.floor(Math.random() * 0x51ff + 0x4e00)) +
                     String.fromCharCode(Math.floor(Math.random() * 0x51ff + 0x4e00));
-            } while (checkExistence(3, a3, a3[i][3]));
+            } while (checkExistence(3, tableArray, tableArray[i][3]));
 
-            //a3[i][2] = 'github';
-            // https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
-            // Math.random() 會回傳一個偽隨機小數 (pseudo-random) 介於 0 到 1 之間(包含 0，不包含 1) 
-            // str.substring(indexStart[, indexEnd])
-            // number.toString(radix) 10個數字 + 26個英文字母 = 36
+            // github
+            // ref: https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
             do{
-                a3[i][4] = (Math.random() + 1).toString(36).substring(2);
-            }while (checkExistence(4, a3, a3[i][4]));
+                tableArray[i][4] = (Math.random() + 1).toString(36).substring(2);
+            }while (checkExistence(4, tableArray, tableArray[i][4]));
 
             // Score
-            for (var j = 5; j < a3[0].length; j++) {
-                a3[i][j] = Math.floor(Math.random() * 10);
+            for (var j = 5; j < tableArray[0].length; j++) {
+                tableArray[i][j] = Math.floor(Math.random() * 10);
             }
         }
 
-        // https://medium.com/wdstack/quick-blurb-generating-a-table-from-an-array-in-javascript-41386fd449a9
-        //setup our table array
+        // ref: https://medium.com/wdstack/quick-blurb-generating-a-table-from-an-array-in-javascript-41386fd449a9
+        // setup our table array
         var tableArr = [
             ["row 1, cell 1", "row 1, cell 2"],
             ["row 2, cell 1", "row 2, cell 2"]
         ]
-        //create a Table Object
+        // create a Table Object
         let table = document.createElement('table');
-        //iterate over every array(row) within tableArr
-        for (let row of a3) {
-            //Insert a new row element into the table element
+        // iterate over every array(row) within tableArr
+        for (let row of tableArray) {
+            // Insert a new row element into the table element
             table.insertRow();
-            //Iterate over every index(cell) in each array(row)
+            // Iterate over every index(cell) in each array(row)
             for (let cell of row) {
-                //While iterating over the index(cell)
-                //insert a cell into the table element
+                // While iterating over the index(cell)
+                // insert a cell into the table element
                 let newCell = table.rows[table.rows.length - 1].insertCell();
-                //add text to the created cell element
+                // add text to the created cell element
                 newCell.textContent = cell;
             }
         }
-        //append the compiled table to the DOM
+        // append the compiled table to the DOM
         document.body.appendChild(table);
-
-
-
-
 
         function tableToCSV() {
 
@@ -208,5 +172,4 @@
         }
     </script>
 </body>
-
 </html>
