@@ -214,7 +214,7 @@ https://www.oxxostudio.tw/articles/201501/svg-d3-13-csv.html
                     return d;
                 }
             })
-            .filter(function (d, i) { return (i >= 2 && !isNaN(d) && d != ""); })
+            .filter(function (d, i) { return (i >= 3 && !isNaN(d) && d != ""); })
             .attr("class", function (d, i) { 
                 if (d == 10) return "excellent-kid"; 
                 else if (d >= 7 ) return "good-kid"; 
