@@ -5,57 +5,117 @@
 <head>
     <meta charset="utf-8">
     <script src="./d3.v7.min.js"></script>
+
 <body>
     <h3>Data Visualization 成績</h3>
-
-    <svg id="chart"></svg>
-
-    <script type="module" src="./uid.js"></script>
     <script type="text/javascript" charset="utf-8">
-        import uid from "uid.js"
+        var count = 0;
+
+        function uid(name) {
+            return new Id("O-" + (name == null ? "" : name + "-") + ++count);
+        }
+
+        function Id(id) {
+            this.id = id;
+            this.href = new URL(`#${id}`, location) + "";
+        }
+
+        Id.prototype.toString = function () {
+            return "url(" + this.href + ")";
+        };
 
         data = {
-            name: "flare",
-            children: [
-                {
-                    name: "analytics",
-                    children: [
-                        {
-                            name: "cluster",
-                            children: [
-                                { name: "AgglomerativeCluster", value: 3938 },
-                                { name: "CommunityStructure", value: 3812 },
-                                { name: "HierarchicalCluster", value: 6714 },
-                                { name: "MergeEdge", value: 743 }
-                            ]
-                        },
-                        {
-                            name: "graph",
-                            children: [
-                                { name: "BetweennessCentrality", value: 3534 },
-                                { name: "LinkDistance", value: 5731 },
-                                { name: "MaxFlowMinCut", value: 7840 },
-                                { name: "ShortestPaths", value: 5914 },
-                                { name: "SpanningTree", value: 3416 }
-                            ]
-                        },
-                        {
-                            name: "optimization",
-                            children: [{ name: "AspectRatioBanker", value: 7074 }]
-                        }
-                    ]
-                }
-            ]
-        }
-        console.log(data)
+            name: "Data Visualization",
+            children: []
+        };
 
-        let svg = d3.select("#chart").node();
-        svg.appendChild(chart());
+        function check(array, target) {
+            for (let i = 0; i < array.length; i++) {
+                if (array[i].name == target)
+                    return true;
+            }
+            return false;
+        }
+
+        d3.text("./data.csv").then(function (csvData) {
+            parsedCSV = d3.csvParseRows(csvData);
+            parsedCSV.shift();
+
+            parsedCSV.forEach(element => {
+                if (!check(data["children"], element[1])) {
+                    data["children"].push({
+                        "name": element[1],
+                        "children": [],
+                    });
+                }
+                else {
+                    data["children"].find((classType) => {
+                        if (classType["name"] == element[1])
+                            return true;
+                        else
+                            return false;
+                    })["children"].push({
+                        "name": element[2],
+                        "children": [
+                            {
+                                name: "作業1",
+                                value: element[5]
+                            },
+                            {
+                                name: "作業2",
+                                value: element[6]
+                            },
+                            {
+                                name: "作業3",
+                                value: element[7]
+                            },
+                            {
+                                name: "作業4",
+                                value: element[8]
+                            },
+                            {
+                                name: "作業5",
+                                value: element[9]
+                            },
+                            {
+                                name: "作業6",
+                                value: element[10]
+                            },
+                            {
+                                name: "作業7",
+                                value: element[11]
+                            },
+                            {
+                                name: "作業8",
+                                value: element[12]
+                            },
+                            {
+                                name: "作業9",
+                                value: element[13]
+                            },
+                            {
+                                name: "作業10",
+                                value: element[14]
+                            }
+                        ]
+                    });
+                }
+            });
+            data1=[];
+            data["children"].forEach((element) =>{
+                data1.push(element)
+            });
+            console.log(data1);
+
+            let svg = d3.select("body").node();
+            svg.appendChild(chart());
+        });
+
 
         function chart() {
             // Specify the chart’s dimensions.
-            const width = 928;
-            const height = 924;
+            const width = window.innerWidth - 150;
+            const height = window.innerHeight - 150;
 
             // This custom tiling function adapts the built-in binary tiling function
             // for the appropriate aspect ratio when the treemap is zoomed-in.
