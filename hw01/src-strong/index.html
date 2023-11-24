@@ -25,7 +25,7 @@
         };
 
         data = {
-            name: "Data Visualization",
+            name: "成績",
             children: []
         };
 
@@ -101,11 +101,6 @@
                     });
                 }
             });
-            data1=[];
-            data["children"].forEach((element) =>{
-                data1.push(element)
-            });
-            console.log(data1);
 
             let svg = d3.select("body").node();
             svg.appendChild(chart());
