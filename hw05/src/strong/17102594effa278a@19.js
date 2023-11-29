@@ -190,7 +190,7 @@ function _simple1(d3,simple,drag,url_list,invalidation)
 
 
 function _simple(FileAttachment){return(
-FileAttachment("output(分數)@2.json").json()
+FileAttachment("output(分數).json").json()
 )}
 
 function _url_list(){return(
