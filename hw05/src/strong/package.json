@@ -1,0 +1,14 @@
+{
+  "name": "17102594effa278a",
+  "main": "17102594effa278a@19.js",
+  "version": "19.0.0",
+  "homepage": "https://observablehq.com/d/17102594effa278a",
+  "author": {
+    "name": "陳峰楷（Tim）'s Workspace",
+    "url": "https://observablehq.com/@chen-feng-kai-tim-ws"
+  },
+  "type": "module",
+  "peerDependencies": {
+    "@observablehq/runtime": "4 - 5"
+  }
+}
